@@ -1,0 +1,30 @@
+import unittest
+from app import app
+
+class TestVoiceTranslationApp(unittest.TestCase):
+
+    def setUp(self):
+        app.testing = True
+        self.app = app.test_client()
+
+    def tearDown(self):
+        pass
+
+    def test_record_endpoint(self):
+        # Test the /record endpoint with a sample input
+        response = self.app.post('/record')
+        data = response.get_json()
+
+        # Check if the response contains the expected keys
+        self.assertIn('detected_lang', data)
+        self.assertIn('detected_text', data)
+        self.assertIn('to_lang', data)
+        self.assertIn('translated_text', data)
+        self.assertIn('audio_file', data)
+
+        # Add more assertions based on the expected behavior
+
+    # Add more test cases for different scenarios
+
+if __name__ == '__main__':
+    unittest.main()
